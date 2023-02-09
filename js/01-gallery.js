@@ -30,15 +30,22 @@ function onGalleryClick(e) {
   if (e.target.nodeName !== 'IMG') return;
 
   const instance = openLightbox(e.target.dataset.source);
+  const lightboxEl = document.querySelector('.lightbox');
 
+  if (lightboxEl) {
+    instance.close();
+    document.removeEventListener('keydown', onEscapePressed);
+  }
   document.addEventListener('keydown', onEscapePressed);
 
   function onEscapePressed(e) {
-    if (e.key === 'Escape') {
-      instance.close();
-      document.removeEventListener('keydown', onEscapePressed);
-    }
+    if (e.key === 'Escape') closeInstanceAndListener(instance, onEscapePressed);
   }
+}
+
+function closeInstanceAndListener(instance, functionToRemove) {
+  instance.close();
+  document.removeEventListener('keydown', functionToRemove);
 }
 
 const newHTML = galleryItems.reduce((acc, galleryItem) => {
