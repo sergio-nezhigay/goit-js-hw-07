@@ -17,11 +17,29 @@ function galleryItemHTML(galleryItem) {
 </div>`;
 }
 
+function openLightbox(link) {
+  const instance = basicLightbox.create(`
+    <img src="${link}" class="lightbox" >
+`);
+  instance.show();
+  return instance;
+}
+
 function onGalleryClick(e) {
   e.preventDefault();
   if (e.target.nodeName !== 'IMG') return;
-  console.log(e.target.dataset.source);
-  //   console.log('🚀 ~ file: 01-gallery.js:23 ~ onGalleryClick ~ e', e.target);
+
+  const instance = openLightbox(e.target.dataset.source);
+
+  document.addEventListener('keydown', onEscapePressed);
+
+  function onEscapePressed(e) {
+    if (e.key === 'Escape') {
+      console.log('escaped...');
+      instance.close();
+      document.removeEventListener('keydown', onEscapePressed);
+    }
+  }
 }
 
 const newHTML = galleryItems.reduce((acc, galleryItem) => {
