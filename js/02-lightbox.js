@@ -8,6 +8,8 @@ const galleryItemsHtml = galleryItems.reduce((acc, galleryItem) => {
 
 galleryEl.innerHTML = galleryItemsHtml;
 
+const lightbox = new SimpleLightbox('.gallery a');
+
 function galleryItemHTML(galleryItem) {
   return `
             <a class="gallery__link" href="${galleryItem.original}">
