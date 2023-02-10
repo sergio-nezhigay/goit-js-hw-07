@@ -14,7 +14,7 @@ new SimpleLightbox('.gallery a', {
 });
 
 function galleryItemHTML(galleryItem) {
-  return `
+  return `<li>
             <a class="gallery__link" href="${galleryItem.original}">
               <img
                 class="gallery__image"
@@ -22,5 +22,6 @@ function galleryItemHTML(galleryItem) {
                 alt="${galleryItem.description}"
               />
             </a>
+          </li>  
           `;
 }

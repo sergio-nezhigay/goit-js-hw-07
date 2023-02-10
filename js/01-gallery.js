@@ -30,20 +30,21 @@ function galleryItemHTML(galleryItem) {
 }
 
 function openLightbox(link) {
-  const instance = basicLightbox.create(`
-    <img src="${link}" class="lightbox" >
-`);
-  instance.show();
-  // add on Escape key press handler
-  if (instance.visible()) {
-    document.addEventListener('keydown', onEscapePressed);
-    function onEscapePressed(e) {
-      if (e.key === 'Escape') removeLightboxAndHandler(instance, onEscapePressed);
+  const instance = basicLightbox.create(
+    `
+    <img src="${link}" >
+`,
+    {
+      onShow: instance => document.addEventListener('keydown', onKeyPressed),
+      onClose: instance => {
+        console.log('onShow closed');
+        document.removeEventListener('keydown', onKeyPressed);
+      },
     }
-  }
-}
+  );
+  instance.show();
 
-function removeLightboxAndHandler(instance, functionToRemove) {
-  instance.close();
-  document.removeEventListener('keydown', functionToRemove);
+  function onKeyPressed(e) {
+    if (e.key === 'Escape') instance.close();
+  }
 }
