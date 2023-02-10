@@ -32,19 +32,17 @@ function galleryItemHTML(galleryItem) {
 function openLightbox(link) {
   const instance = basicLightbox.create(
     `
-    <img src="${link}" >
-`,
+      <img src="${link}" >
+    `,
     {
       onShow: instance => document.addEventListener('keydown', onKeyPressed),
-      onClose: instance => {
-        console.log('onShow closed');
-        document.removeEventListener('keydown', onKeyPressed);
-      },
+      onClose: instance => document.removeEventListener('keydown', onKeyPressed),
     }
   );
   instance.show();
 
   function onKeyPressed(e) {
+    // працює, тільки для мене незрозуміло, як сюда попадає instance (з параметра чи ні ?), і чи оптимальним є саме цей варіант отримання значення instance
     if (e.key === 'Escape') instance.close();
   }
 }
