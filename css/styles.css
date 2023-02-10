@@ -42,13 +42,3 @@
 .gallery__link:hover {
   cursor: zoom-in;
 }
-
-.lightbox {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-  height: auto;
-  width: 50%;
-}
